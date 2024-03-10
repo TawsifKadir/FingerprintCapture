@@ -530,7 +530,7 @@ public class FingerprintCaptureActivity extends AppCompatActivity implements Ada
         Button close = (Button) mView.findViewById(R.id.closeBtn);
 
         mOtherReasonTextView = (EditText) mView.findViewById(R.id.otherReasonText);
-
+        mOtherReasonTextView.setTextColor(Color.BLACK);
         mOtherReasonTextView.setFilters(new InputFilter[] {new InputFilter.LengthFilter(100)});
         mOtherReasonTextView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

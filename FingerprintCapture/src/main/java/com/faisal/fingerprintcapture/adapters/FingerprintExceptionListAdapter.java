@@ -50,6 +50,7 @@ public class FingerprintExceptionListAdapter extends BaseAdapter {
         if(false) {
             view = inflter.inflate(R.layout.no_fingerprint_reason_items, null);
             TextView names = (TextView) view.findViewById(R.id.textView);
+//            names.setTextColor(Color.BLACK);
             if (reasons != null && reasons.get(position) != null)
                 names.setText(reasons.get(position).getNoFingerprintReasonText());
         }else{
@@ -60,6 +61,7 @@ public class FingerprintExceptionListAdapter extends BaseAdapter {
             }
             view.setBackgroundColor(Color.WHITE);
             TextView names = (TextView) view.findViewById(R.id.textView);
+//            names.setTextColor(Color.BLACK);
             if (reasons != null && reasons.get(position) != null)
                 names.setText(reasons.get(position).getNoFingerprintReasonText());
         }
