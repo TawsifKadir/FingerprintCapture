@@ -1,6 +1,6 @@
 plugins {
 //    id("com.android.application")
-    id("com.android.library")
+  id("com.android.library")
 }
 
 android {
@@ -16,7 +16,6 @@ android {
         version = "1.3"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         signingConfig = signingConfigs.getByName("debug")
-
 
     }
 

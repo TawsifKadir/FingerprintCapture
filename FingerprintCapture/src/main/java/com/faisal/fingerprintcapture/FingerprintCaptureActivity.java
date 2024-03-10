@@ -70,7 +70,7 @@ public class FingerprintCaptureActivity extends AppCompatActivity implements Ada
 
     private ThreadPoolExecutor taskExecutor;
 
-    private boolean isDummyDevice = false;
+    private boolean isDummyDevice = true;
 
     private FingerprintMatchingHandler mfpMatchHandler;
 
