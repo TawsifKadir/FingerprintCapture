@@ -1,5 +1,5 @@
 plugins {
-    ///id("com.android.application")
+//    id("com.android.application")
     id("com.android.library")
 }
 
@@ -11,8 +11,8 @@ android {
         ///applicationId = "com.faisal.fingerprintcapture"
         minSdk = 29
         targetSdk = 34
-       ///versionCode = 1
-       ///versionName = "1.1"
+//       versionCode = 1
+//       versionName = "1.1"
         version = "1.3"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         signingConfig = signingConfigs.getByName("debug")

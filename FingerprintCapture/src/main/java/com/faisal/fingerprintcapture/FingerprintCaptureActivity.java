@@ -13,7 +13,9 @@ import android.os.Bundle;
 
 import android.text.InputFilter;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -68,7 +70,7 @@ public class FingerprintCaptureActivity extends AppCompatActivity implements Ada
 
     private ThreadPoolExecutor taskExecutor;
 
-    private boolean isDummyDevice = true;
+    private boolean isDummyDevice = false;
 
     private FingerprintMatchingHandler mfpMatchHandler;
 
@@ -133,12 +135,23 @@ public class FingerprintCaptureActivity extends AppCompatActivity implements Ada
         mDoneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                ////Need to fix dialog issue
+
                 if(!isFingerprintMissing()){
                     prepareReturnData();
-                    finish();
+//                    finish();
                 }else{
                     showNoFingerprintExceptionDialog();
                 }
+
+                if(isFingerprintMissing()){
+                    mHasFingerprintException=true;
+                    mNoFingerprintReason = NoFingerprintReason.NoFingerprintImpression;
+                }
+                prepareReturnData();
+//                finish();
+
             }
         });
         for(Fingerprint fp:fingerprintList){
@@ -193,7 +206,7 @@ public class FingerprintCaptureActivity extends AppCompatActivity implements Ada
                 dlgAlert.setPositiveButton("OK",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int whichButton){
-                                finish();
+//                                finish();
                                 return;
                             }
                         }
@@ -217,7 +230,7 @@ public class FingerprintCaptureActivity extends AppCompatActivity implements Ada
                     dlgAlert.setPositiveButton("OK",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
-                                    finish();
+//                                    finish();
                                     return;
                                 }
                             }
@@ -503,11 +516,15 @@ public class FingerprintCaptureActivity extends AppCompatActivity implements Ada
 
     public void showNoFingerprintExceptionDialog(){
         mHasFingerprintException=true;
+
+        ViewGroup viewGroup = findViewById(android.R.id.content);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View mView = getLayoutInflater().inflate(R.layout.no_finger_drop_down,null);
+        View mView = LayoutInflater.from(this).inflate(R.layout.no_finger_drop_down,viewGroup,false);
         builder.setTitle(R.string.noFingerprintExceptionDlgTitle);
         builder.setIcon(R.drawable.no_finger_dialog_icon);
         Spinner reasonSpinner = (Spinner) mView.findViewById(R.id.spinner);
+
         reasonSpinner.setOnItemSelectedListener(this);
         Button ok = (Button) mView.findViewById(R.id.okBtn);
         Button close = (Button) mView.findViewById(R.id.closeBtn);
@@ -535,6 +552,13 @@ public class FingerprintCaptureActivity extends AppCompatActivity implements Ada
         mNoFingerprintReason = NoFingerprintReason.getNoFingerPrintReasonByID(1);
         FingerprintExceptionListAdapter mAdapter=new FingerprintExceptionListAdapter(getApplicationContext(),mNoFingerprintReasonList);
         reasonSpinner.setAdapter(mAdapter);
+
+        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                FingerprintCaptureActivity.this.finish();
+            }
+        });
 
         builder.setCancelable(false);
 
