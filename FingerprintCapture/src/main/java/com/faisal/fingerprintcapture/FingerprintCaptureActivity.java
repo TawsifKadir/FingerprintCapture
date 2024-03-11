@@ -71,7 +71,7 @@ public class FingerprintCaptureActivity extends AppCompatActivity implements Ada
     private ThreadPoolExecutor taskExecutor;
 
     private boolean isDummyDevice = true;
-
+    private boolean mCloseClicked = false;
     private FingerprintMatchingHandler mfpMatchHandler;
 
     private EditText mOtherReasonTextView;
@@ -136,21 +136,12 @@ public class FingerprintCaptureActivity extends AppCompatActivity implements Ada
             @Override
             public void onClick(View v) {
 
-                ////Need to fix dialog issue
-
                 if(!isFingerprintMissing()){
                     prepareReturnData();
-//                    finish();
+                    finish();
                 }else{
                     showNoFingerprintExceptionDialog();
                 }
-
-                if(isFingerprintMissing()){
-                    mHasFingerprintException=true;
-                    mNoFingerprintReason = NoFingerprintReason.NoFingerprintImpression;
-                }
-                prepareReturnData();
-//                finish();
 
             }
         });
@@ -206,7 +197,7 @@ public class FingerprintCaptureActivity extends AppCompatActivity implements Ada
                 dlgAlert.setPositiveButton("OK",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int whichButton){
-//                                finish();
+                                finish();
                                 return;
                             }
                         }
@@ -230,8 +221,7 @@ public class FingerprintCaptureActivity extends AppCompatActivity implements Ada
                     dlgAlert.setPositiveButton("OK",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
-//                                    finish();
-                                    return;
+                                    finish();
                                 }
                             }
                     );
@@ -556,7 +546,11 @@ public class FingerprintCaptureActivity extends AppCompatActivity implements Ada
         builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                FingerprintCaptureActivity.this.finish();
+                    if(!mCloseClicked)
+                        FingerprintCaptureActivity.this.finish();
+                    else
+                        mCloseClicked = false;
+
             }
         });
 
@@ -588,7 +582,7 @@ public class FingerprintCaptureActivity extends AppCompatActivity implements Ada
         close.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
+                mCloseClicked = true;
                 mHasFingerprintException=false;
                 mNoFingerprintReason = null;
                 mOtherReasonTextView=null;
