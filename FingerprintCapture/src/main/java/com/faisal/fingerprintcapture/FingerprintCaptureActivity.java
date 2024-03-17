@@ -27,12 +27,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-<<<<<<< HEAD
 import android.widget.Toast;
-=======
->>>>>>> 1fb2643d5ccefc84f730a8d9985e39910fc852d1
-
-
 import com.faisal.fingerprintcapture.adapters.FingerprintExceptionListAdapter;
 import com.faisal.fingerprintcapture.callback.DeviceDataCallback;
 import com.faisal.fingerprintcapture.callback.FingerprintCaptureCallback;
@@ -72,9 +67,9 @@ public class FingerprintCaptureActivity extends AppCompatActivity implements Ada
     private Animation mCurrentAnimation;
 
     private ThreadPoolExecutor taskExecutor;
-
     private boolean isDummyDevice = true;
     private boolean duplicateDetectionEnabled = true;
+
     private boolean mCloseClicked = false;
     private FingerprintMatchingHandler mfpMatchHandler;
 
@@ -130,6 +125,7 @@ public class FingerprintCaptureActivity extends AppCompatActivity implements Ada
         if(duplicateDetectionEnabled){
             mfpMatchHandler = new FingerprintMatchingHandler(this);
         }
+
         /*mfpMatchHandler = new FingerprintMatchingHandler(this);
 
         if(mfpMatchHandler.init() != 0){
@@ -528,8 +524,6 @@ public class FingerprintCaptureActivity extends AppCompatActivity implements Ada
         Spinner reasonSpinner = (Spinner) mView.findViewById(R.id.spinner);
 
         reasonSpinner.setOnItemSelectedListener(this);
-        ///reasonSpinner.setPopupBackgroundResource(android.R.layout.simple_spinner_dropdown_item);
-
         Button ok = (Button) mView.findViewById(R.id.okBtn);
         Button close = (Button) mView.findViewById(R.id.closeBtn);
 
